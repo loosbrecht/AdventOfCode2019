@@ -3,18 +3,19 @@ package util
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 
 	"github.com/fatih/color"
 )
 
-func ReadInput(dayNum string) ([]string, error) {
+func ReadInput(dayNum, partNum string) ([]string, error) {
 	path, err := os.Getwd()
 	if err != nil {
 		return nil, err
 	}
-	name := filepath.Join(path, "day"+dayNum, "input", "input")
+	name := filepath.Join(path, "day"+dayNum, "input", "inputpart"+partNum)
 	f, _ := os.Open(name)
 	// Create new Scanner.
 	scanner := bufio.NewScanner(f)
@@ -30,21 +31,29 @@ func ReadInput(dayNum string) ([]string, error) {
 }
 
 type Solver interface {
-	SolveProblemPart1() (string, error)
-	SolveProblemPart2() (string, error)
+	SolveProblemPart1(nput []string) (string, error)
+	SolveProblemPart2(nput []string) (string, error)
 
 	Day() string
 }
 
 func HandleSolver(s Solver) {
 	LogTitle(s.Day())
-	result, err := s.SolveProblemPart1()
+	lines, err := ReadInput(s.Day(), "1")
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := s.SolveProblemPart1(lines)
 	if err != nil {
 		LogError(err.Error())
 	} else {
 		LogSolution("1", result)
 	}
-	result, err = s.SolveProblemPart2()
+	lines, err = ReadInput(s.Day(), "2")
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err = s.SolveProblemPart2(lines)
 	if err != nil {
 		LogError(err.Error())
 	} else {
