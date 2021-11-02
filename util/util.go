@@ -31,9 +31,8 @@ func ReadInput(dayNum, partNum string) ([]string, error) {
 }
 
 type Solver interface {
-	SolveProblemPart1(nput []string) (string, error)
-	SolveProblemPart2(nput []string) (string, error)
-
+	SolveProblemPart1(input []string) (string, error)
+	SolveProblemPart2(input []string) (string, error)
 	Day() string
 }
 

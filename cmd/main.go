@@ -5,11 +5,13 @@ import (
 	"os"
 
 	"github.com/AdventOfCode2019/day1"
+	"github.com/AdventOfCode2019/day2"
 	"github.com/AdventOfCode2019/util"
 )
 
 var solvers = []util.Solver{
 	day1.Day1{},
+	day2.Day2{},
 }
 
 func main() {
